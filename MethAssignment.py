@@ -11,8 +11,10 @@ def leading_one(x):
     leading_coeff=x[y]
     
     for i in range(len(x)):
-        x[i]=x[i]/leading_coeff
-        
+        if abs(x[i])>=0.000001:
+            x[i]=x[i]/leading_coeff
+        else:
+            x[i]=0
     return x
 
 def check_echelon(x):
@@ -43,21 +45,12 @@ for x in range(i):
     row=list(map(float,input("Enter Row: ").strip().split()[:j]))+[0]
     matrix.append(row)
     
-'''
-1 2 3 0
-4 5 6 0
-7 8 9 0
-
-1 0 -1 0
-0 1  2 0
-0 0  0 0 
-''' 
-
 for x in range(i):
         matrix[x]=leading_one(matrix[x])
-        
+
+matrix.sort(reverse=True)
+    
 while check_echelon(matrix)==False:
-    matrix.sort(reverse=True)
     
     y=row_to_reduce(matrix)
     if y!=0:
@@ -67,12 +60,15 @@ while check_echelon(matrix)==False:
             matrix[y][x]=matrix[y][x]-matrix[y-1][x]
     else:
         break
+    
+    # for x in matrix:
+    #     for y in range(len(x)):
+    #         x[y]=round(x[y],2)
                 
     for x in range(i):
         matrix[x]=leading_one(matrix[x])
         
-    for x in matrix:
-        for y in range(len(x)):
-            x[y]=round(x[y],5)
-
-print(matrix)
+    matrix.sort(reverse=True)
+    
+for i in matrix:
+    print(i)
