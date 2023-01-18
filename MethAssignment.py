@@ -2,7 +2,7 @@ def leading_one(x):
     global zero_row
     
     for i in range(len(x)):
-        if x[i]!=0:    
+        if abs(x[i])>=0.000001:    
             y=i
             break
     else:
@@ -73,19 +73,65 @@ while check_echelon(matrix)==False:
         matrix[x]=leading_one(matrix[x])
         
     matrix.sort(reverse=True)
-    
-for w in range(-1,-len(matrix),-1):
-    for x in range(w,0):                                            # Iterates from the given row to last row
-        if matrix[x]!=zero_row:
-            z=matrix[x].index(1)
-            multiplier=matrix[w-1][z]
+
+for row in range(-1,-len(matrix),-1):
+    for next_row in range(row,0):                                            #Iterates from the given row to last row
+        if matrix[next_row]!=zero_row:
+            pivot_pos=matrix[next_row].index(1)
+            multiplier=matrix[row-1][pivot_pos]
         
-            if z!=0:
-                for y in range(z,j+1):                              # Row subtraction
-                    matrix[w-1][y]-=multiplier*matrix[x][y]
+            if pivot_pos!=0:
+                for y in range(pivot_pos,j+1):                              #Row subtraction
+                    matrix[row-1][y]-=multiplier*matrix[next_row][y]
             else:
                 continue
     
-print("Reduced Row Echelon Form: ")
+print("\nRow Reduced Echelon Form of the Augumented Matrix: ")
 for x in matrix:
+    for y in range(j):
+        x[y]=round(x[y],3)        
     print(x)
+
+free_var=[]
+for x in range(len(matrix)-1):
+    if matrix[x+1]==zero_row:
+        free_var.extend(range(matrix[x].index(1)+2,j+1))
+        break
+    
+    pivot_diff=matrix[x+1].index(1)-matrix[x].index(1)
+    if pivot_diff>1:
+        free_var.extend(range(matrix[x].index(1)+2,matrix[x+1].index(1)+1))
+else:
+    free_var.extend(range(matrix[x+1].index(1)+2,j+1))
+
+if len(free_var)!=0:
+    parametric=[]
+    for x in matrix:
+        
+        vector=[]
+        for y in free_var:
+            vector.append(x[y-1])
+            
+        parametric.append(vector)
+
+    to_print="x = "
+    
+    for x in range(len(free_var)):
+        
+        vector=[]
+        for y in parametric:
+            vector.append(-y[x])
+        
+        for z in free_var:
+            if free_var[x]!=z:
+                vector.insert(z-1,0)
+        else:
+            vector.insert(free_var[x]-1,1)
+        
+        vector.pop(-1)
+            
+        to_print+=str(vector)+"x"+str(free_var[x])+"+"
+
+    print("\n"+to_print.rstrip("+"))
+else:
+    print("\nNo free variables thus, only trivial solutions exist")       
