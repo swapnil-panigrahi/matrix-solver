@@ -75,10 +75,11 @@ while check_echelon(matrix)==False:
     matrix.sort(reverse=True)
 
 for row in range(-1,-len(matrix),-1):
-    for next_row in range(row,0):                                            #Iterates from the given row to last row
+    for next_row in range(row,0):                                           #Iterates from the given row to last row
+        
         if matrix[next_row]!=zero_row:
-            pivot_pos=matrix[next_row].index(1)
-            multiplier=matrix[row-1][pivot_pos]
+            pivot_pos=matrix[next_row].index(1)                             #Getting the pivot positions of the next row 
+            multiplier=matrix[row-1][pivot_pos]                             #Getting the factor to multiply the row with
         
             if pivot_pos!=0:
                 for y in range(pivot_pos,j+1):                              #Row subtraction
@@ -92,37 +93,36 @@ for x in matrix:
         x[y]=round(x[y],3)        
     print(x)
 
-free_var=[]
+free_var=[]                                                                 #List to store positions of free variables
 for x in range(len(matrix)-1):
     if matrix[x+1]==zero_row:
-        free_var.extend(range(matrix[x].index(1)+2,j+1))
+        free_var.extend(range(matrix[x].index(1)+2,j+1))                    #Appending the free variables whose rows are zeroes
         break
     
     pivot_diff=matrix[x+1].index(1)-matrix[x].index(1)
-    if pivot_diff>1:
+    if pivot_diff>1:                                                        #If difference in pivot position is greater than 1, free variables exist
         free_var.extend(range(matrix[x].index(1)+2,matrix[x+1].index(1)+1))
-else:
-    free_var.extend(range(matrix[x+1].index(1)+2,j+1))
+else:                                                                       
+    free_var.extend(range(matrix[x+1].index(1)+2,j+1))                      #Checks if there are still free variables after hitting the last row
 
-if len(free_var)!=0:
+if len(free_var)!=0:                                                        #If free variables exist then...
     parametric=[]
     for x in matrix:
         
         vector=[]
         for y in free_var:
-            vector.append(x[y-1])
-            
-        parametric.append(vector)
+            vector.append(x[y-1]) 
+        parametric.append(vector)                                           #Storing the vectors in parametric list
 
     to_print="x = "
     
     for x in range(len(free_var)):
         
         vector=[]
-        for y in parametric:
+        for y in parametric:                                                #Taking the corresponding values from the parametric list and appending to vector
             vector.append(-y[x])
         
-        for z in free_var:
+        for z in free_var:                                                  #Adding zeroes for the other free variables and ones for itself
             if free_var[x]!=z:
                 vector.insert(z-1,0)
         else:
@@ -133,5 +133,5 @@ if len(free_var)!=0:
         to_print+=str(vector)+"x"+str(free_var[x])+"+"
 
     print("\n"+to_print.rstrip("+"))
-else:
+else:                                                                       #If free varaibles don't exist then...
     print("\nNo free variables thus, only trivial solutions exist")       
