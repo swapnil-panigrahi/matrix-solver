@@ -104,16 +104,18 @@ else:
             print(x)
 
         free_var=[]                                                                 #List to store positions of free variables
-        for x in range(len(matrix)-1):
-            if matrix[x+1]==zero_row:
-                free_var.extend(range(matrix[x].index(1)+2,j+1))                    #Appending the free variables whose rows are zeroes
-                break
-            
-            pivot_diff=matrix[x+1].index(1)-matrix[x].index(1)
-            if pivot_diff>1:                                                        #If difference in pivot position is greater than 1, free variables exist
-                free_var.extend(range(matrix[x].index(1)+2,matrix[x+1].index(1)+1))
-        else:                                                                       
-            free_var.extend(range(matrix[x+1].index(1)+2,j+1))                      #Checks if there are still free variables after hitting the last row
+        
+        if len(matrix)>1:
+            for x in range(len(matrix)-1):
+                if matrix[x+1]==zero_row:
+                    free_var.extend(range(matrix[x].index(1)+2,j+1))                    #Appending the free variables whose rows are zeroes
+                    break
+                
+                pivot_diff=matrix[x+1].index(1)-matrix[x].index(1)
+                if pivot_diff>1:                                                        #If difference in pivot position is greater than 1, free variables exist
+                    free_var.extend(range(matrix[x].index(1)+2,matrix[x+1].index(1)+1))
+            else:                                                                       
+                free_var.extend(range(matrix[x+1].index(1)+2,j+1))                      #Checks if there are still free variables after hitting the last row
 
         if len(free_var)!=0:                                                        #If free variables exist then...
             
