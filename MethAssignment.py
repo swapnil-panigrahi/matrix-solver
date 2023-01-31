@@ -108,6 +108,9 @@ else:
         
         if len(matrix)>1:
             for x in range(len(matrix)-1):
+                if x==0:
+                    for z in range(matrix[x].index(1)):
+                        free_var.append(z+1)
                 if matrix[x+1]==zero_row:
                     free_var.extend(range(matrix[x].index(1)+2,j+1))                    #Appending the free variables whose rows are zeroes
                     break
