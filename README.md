@@ -3,7 +3,7 @@ Gives the RREF form of the matrix entered and the parametric vector form of the 
 
 ### Input Format
 <br>
-<rows> <columns>
+/<rows/> /<columns/>
 <row<sub>1</sub>>
 <br>
 <row<sub>2</sub>>
