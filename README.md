@@ -2,7 +2,8 @@
 Gives the RREF form of the matrix entered and the parametric vector form of the same
 
 ### Input Format
-rows columns
+<rows> <columns>
+<br>
 <row<sub>1</sub>>
 <br>
 <row<sub>2</sub>>
