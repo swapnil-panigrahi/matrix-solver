@@ -4,8 +4,13 @@ Gives the RREF form of the matrix entered and the parametric vector form of the 
 ### Input Format
 <rows> <columns>
 <row<sub>1</sub>>
+<br>
 <row<sub>2</sub>>
+<br>
 .
+<br>
 .
+<br>
 .
+<br>
 <row<sub>n</sub>>
