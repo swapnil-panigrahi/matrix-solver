@@ -3,9 +3,9 @@ Gives the RREF form of the matrix entered and the parametric vector form of the 
 
 ### Input Format
 <rows> <columns>
-<row~1~>
-<row~2~>
+<row<sub>1</sub>>
+<row<sub>2</sub>>
 .
 .
 .
-<row~n~>
+<row<sub>n</sub>>
